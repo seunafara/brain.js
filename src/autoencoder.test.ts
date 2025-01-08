@@ -73,15 +73,15 @@ test('restores a net fromJSON', () => {
     return Math.round(net.denoise(args)[2]);
   }
 
-  const jsonNet = xornet.toJSON();
-  const restoredNet = new AE<number[], number[]>({
-    json: jsonNet,
+  const json = xornet.toJSON();
+  const net = new AE<number[], number[]>({
+    json,
   });
 
-  const run1 = xor(restoredNet, 0, 0, 0);
-  const run2 = xor(restoredNet, 0, 1, 1);
-  const run3 = xor(restoredNet, 1, 0, 1);
-  const run4 = xor(restoredNet, 1, 1, 0);
+  const run1 = xor(net, 0, 0, 0);
+  const run2 = xor(net, 0, 1, 1);
+  const run3 = xor(net, 1, 0, 1);
+  const run4 = xor(net, 1, 1, 0);
 
   expect(run1).toBe(0);
   expect(run2).toBe(1);
