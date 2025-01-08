@@ -3,6 +3,7 @@ import {
   IJSONLayer,
   INeuralNetworkData,
   INeuralNetworkDatum,
+  INeuralNetworkJSON,
   INeuralNetworkTrainOptions,
 } from './neural-network';
 import {
@@ -26,7 +27,7 @@ export class AE<
   EncodedData extends INeuralNetworkData
 > {
   private decoder?: NeuralNetworkGPU<EncodedData, DecodedData>;
-  private readonly denoiser: NeuralNetworkGPU<DecodedData, DecodedData>;
+  private denoiser: NeuralNetworkGPU<DecodedData, DecodedData>;
 
   constructor(options?: Partial<IAEOptions>) {
     // Create default options for the autoencoder.
@@ -149,10 +150,9 @@ export class AE<
     data: DecodedData[],
     options?: Partial<INeuralNetworkTrainOptions>
   ): INeuralNetworkState {
-    const preprocessedData: Array<INeuralNetworkDatum<
-      Partial<DecodedData>,
-      Partial<DecodedData>
-    >> = [];
+    const preprocessedData: Array<
+      INeuralNetworkDatum<Partial<DecodedData>, Partial<DecodedData>>
+    > = [];
 
     for (const datum of data) {
       preprocessedData.push({ input: datum, output: datum });
@@ -188,7 +188,16 @@ export class AE<
 
     const decoder = new NeuralNetworkGPU().fromJSON(json);
 
-    return (decoder as unknown) as NeuralNetworkGPU<EncodedData, DecodedData>;
+    return decoder as unknown as NeuralNetworkGPU<EncodedData, DecodedData>;
+  }
+
+  toJSON(): INeuralNetworkJSON {
+    return this.denoiser.toJSON();
+  }
+
+  fromJSON(json: INeuralNetworkJSON): this {
+    this.denoiser = this.denoiser.fromJSON(json);
+    return this;
   }
 
   /**
