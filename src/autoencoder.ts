@@ -193,7 +193,7 @@ export class AE<
 
     const decoder = new NeuralNetworkGPU().fromJSON(json);
 
-    return decoder as unknown as NeuralNetworkGPU<EncodedData, DecodedData>;
+    return (decoder as unknown) as NeuralNetworkGPU<EncodedData, DecodedData>;
   }
 
   toJSON(): INeuralNetworkJSON {
