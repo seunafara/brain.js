@@ -73,13 +73,13 @@ test('restores a net fromJSON', () => {
     return Math.round(net.denoise(args)[2]);
   }
 
-  const decoder = xornet.toJSON();
-  const restoredDecoder = xornet.fromJSON(decoder);
+  const jsonNet = xornet.toJSON();
+  const restoredNet = xornet.fromJSON(jsonNet);
 
-  const run1 = xor(restoredDecoder, 0, 0, 0);
-  const run2 = xor(restoredDecoder, 0, 1, 1);
-  const run3 = xor(restoredDecoder, 1, 0, 1);
-  const run4 = xor(restoredDecoder, 1, 1, 0);
+  const run1 = xor(restoredNet, 0, 0, 0);
+  const run2 = xor(restoredNet, 0, 1, 1);
+  const run3 = xor(restoredNet, 1, 0, 1);
+  const run4 = xor(restoredNet, 1, 1, 0);
 
   expect(run1).toBe(0);
   expect(run2).toBe(1);
