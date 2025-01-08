@@ -155,9 +155,10 @@ export class AE<
     data: DecodedData[],
     options?: Partial<INeuralNetworkTrainOptions>
   ): INeuralNetworkState {
-    const preprocessedData: Array<
-      INeuralNetworkDatum<Partial<DecodedData>, Partial<DecodedData>>
-    > = [];
+    const preprocessedData: Array<INeuralNetworkDatum<
+      Partial<DecodedData>,
+      Partial<DecodedData>
+    >> = [];
 
     for (const datum of data) {
       preprocessedData.push({ input: datum, output: datum });
