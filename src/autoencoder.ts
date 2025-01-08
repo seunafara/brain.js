@@ -17,6 +17,7 @@ export interface IAEOptions {
   binaryThresh: number;
   decodedSize: number;
   hiddenLayers: number[];
+  json?: INeuralNetworkJSON;
 }
 
 /**
@@ -48,6 +49,10 @@ export class AE<
 
     // Create the denoiser subnet of the autoencoder.
     this.denoiser = new NeuralNetworkGPU<DecodedData, DecodedData>(options);
+
+    if (options.json) {
+      this.denoiser = this.denoiser.fromJSON(options.json);
+    }
   }
 
   /**

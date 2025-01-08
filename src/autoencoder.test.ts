@@ -74,7 +74,9 @@ test('restores a net fromJSON', () => {
   }
 
   const jsonNet = xornet.toJSON();
-  const restoredNet = xornet.fromJSON(jsonNet);
+  const restoredNet = new AE<number[], number[]>({
+    json: jsonNet,
+  });
 
   const run1 = xor(restoredNet, 0, 0, 0);
   const run2 = xor(restoredNet, 0, 1, 1);
